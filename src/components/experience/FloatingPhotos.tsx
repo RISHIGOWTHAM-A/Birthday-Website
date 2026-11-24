@@ -54,10 +54,11 @@ function FloatingPhoto({ url, i }: { url: string; i: number }) {
     const p = journey.smooth;
     // soft spring-like reveal
     const v = sstep(p, threshold, threshold + 0.07);
-    const ease = 1 - Math.pow(1 - v, 3);
+    const out = 1 - sstep(p, 0.9, 0.945); // fade every frame before the finale
+    const ease = (1 - Math.pow(1 - v, 3)) * out;
     const dist = Math.abs(s.camera.position.z - pos[2]);
     const near = sstep(90 - dist, 0, 55); // fade if camera has flown far past
-    group.current.visible = v > 0.001 && dist < 95;
+    group.current.visible = ease > 0.001 && dist < 95;
     const sc = ease * (0.6 + near * 0.4);
     inner.current.scale.setScalar(Math.max(0.001, sc));
     group.current.position.set(
@@ -88,8 +89,8 @@ function FloatingPhoto({ url, i }: { url: string; i: number }) {
           <meshBasicMaterial map={frameTex} transparent opacity={0}
             blending={THREE.AdditiveBlending} depthWrite={false} side={THREE.DoubleSide} />
         </mesh>
-        {/* the photo */}
-        <mesh>
+        {/* the photo — tap to enlarge */}
+        <mesh onClick={() => window.dispatchEvent(new CustomEvent("open-photo", { detail: i }))}>
           <planeGeometry args={[W, H]} />
           <meshBasicMaterial map={tex ?? fallback}
             transparent opacity={0} toneMapped={false} side={THREE.DoubleSide} />

@@ -13,7 +13,7 @@ export default function Asteroids() {
       Array.from({ length: count }, (_, i) => ({
         x: (Math.random() - 0.5) * 55,
         y: (Math.random() - 0.5) * 32,
-        z: -300 - Math.random() * 190,
+        z: -300 - Math.random() * 52, // belt ends before the memory corridor (-358+)
         s: 0.25 + Math.random() * (Math.random() < 0.12 ? 2.4 : 0.9),
         rx: Math.random() * Math.PI * 2,
         ry: Math.random() * Math.PI * 2,

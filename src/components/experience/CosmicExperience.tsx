@@ -50,7 +50,8 @@ export default function CosmicExperience() {
         {/* heart glimpsed in the opening, far ahead */}
         <Heart position={[0, 0.6, -8]} scale={1.6} intensity={0.9} />
         {/* the heart of the universe — final reveal */}
-        <Heart position={[0, 0.4, -452]} scale={3.4} intensity={1.5} />
+        <Heart position={[0, 0.4, -452]} scale={3.4} intensity={1.0}
+          color="#8a4526" emissive="#4a1c0a" light="#c07040" />
       </Suspense>
     </Canvas>
   );

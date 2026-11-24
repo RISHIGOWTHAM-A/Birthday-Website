@@ -67,7 +67,10 @@ export default function CaptionLayer({ progress }: { progress: number }) {
               transition={{ delay: 1.5, duration: 1.8, ease: [0.22, 1, 0.36, 1] }}
               className="name-glow font-script mt-2 text-7xl leading-tight md:text-9xl"
             >
-              {c.name} ❤️
+              {c.name}{" "}
+              <span style={{ color: "#a8542e", WebkitTextFillColor: "#a8542e", filter: "drop-shadow(0 0 22px rgba(200,110,60,.7))" }}>
+                ♥
+              </span>
             </motion.h1>
             <motion.p
               initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 2.4, duration: 1.4 }}

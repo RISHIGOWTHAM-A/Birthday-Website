@@ -20,10 +20,13 @@ export function useHeartGeometry() {
 }
 
 /** Glowing 3D heart with halo + inner light. */
-export default function Heart({ position, scale = 1, intensity = 1 }: {
+export default function Heart({ position, scale = 1, intensity = 1, color = "#ff4f9e", emissive = "#ff2d78", light = "#ff6ab0" }: {
   position: [number, number, number];
   scale?: number;
   intensity?: number;
+  color?: string;
+  emissive?: string;
+  light?: string;
 }) {
   const geo = useHeartGeometry();
   const group = useRef<THREE.Group>(null);
@@ -45,16 +48,16 @@ export default function Heart({ position, scale = 1, intensity = 1 }: {
     <group position={position}>
       <group ref={group}>
         <mesh geometry={geo}>
-          <meshPhysicalMaterial ref={mat} color="#ff4f9e" emissive="#ff2d78"
+          <meshPhysicalMaterial ref={mat} color={color} emissive={emissive}
             emissiveIntensity={1.2} roughness={0.25} metalness={0.1}
             clearcoat={1} clearcoatRoughness={0.3} />
         </mesh>
       </group>
       <sprite scale={[9 * scale, 9 * scale, 1]}>
-        <spriteMaterial map={glowTex} transparent opacity={0.55 * intensity}
+        <spriteMaterial map={glowTex} color={light} transparent opacity={0.55 * intensity}
           blending={THREE.AdditiveBlending} depthWrite={false} />
       </sprite>
-      <pointLight color="#ff6ab0" intensity={30 * intensity} distance={30} decay={2} />
+      <pointLight color={light} intensity={30 * intensity} distance={30} decay={2} />
     </group>
   );
 }

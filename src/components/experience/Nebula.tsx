@@ -40,9 +40,9 @@ void main() {
 }`;
 
 /** A single volumetric-feeling cloud plane the camera flies through. */
-function Cloud({ p, size, seed, cols, spin = 1 }: {
+export function Cloud({ p, size, seed, cols, spin = 1, parallax = 1 }: {
   p: [number, number, number]; size: number; seed: number;
-  cols: [string, string, string]; spin?: number;
+  cols: [string, string, string]; spin?: number; parallax?: number;
 }) {
   const mat = useRef<THREE.ShaderMaterial>(null);
   const mesh = useRef<THREE.Mesh>(null);
@@ -56,8 +56,8 @@ function Cloud({ p, size, seed, cols, spin = 1 }: {
     if (mat.current) mat.current.uniforms.uTime.value = s.clock.elapsedTime * spin;
     if (mesh.current) {
       mesh.current.rotation.z = s.clock.elapsedTime * 0.012 * spin;
-      mesh.current.position.x = p[0] + journey.mouse.x * -2.2;
-      mesh.current.position.y = p[1] + journey.mouse.y * -1.4;
+      mesh.current.position.x = p[0] + journey.mouse.x * -2.2 * parallax;
+      mesh.current.position.y = p[1] + journey.mouse.y * -1.4 * parallax;
     }
   });
   return (

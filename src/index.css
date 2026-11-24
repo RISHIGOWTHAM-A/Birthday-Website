@@ -44,6 +44,39 @@ body::after {
   50% { height: 16px; opacity: 1; }
 }
 
+/* royal-letter flames — teardrop licks flickering on both edges */
+.flame-lick {
+  position: absolute;
+  border-radius: 50% 50% 30% 30% / 70% 70% 30% 30%;
+  background: radial-gradient(ellipse at 50% 100%, #ffe08a 0%, #ff9d2e 35%, #ff4d00 70%, transparent 78%);
+  filter: blur(2.5px);
+  transform-origin: 50% 100%;
+  animation: flameFlicker .7s ease-in-out infinite;
+  mix-blend-mode: screen;
+  opacity: .9;
+}
+@keyframes flameFlicker {
+  0%, 100% { transform: scaleY(1) scaleX(1) rotate(-2deg); opacity: .85; }
+  30%      { transform: scaleY(1.25) scaleX(.85) rotate(3deg); opacity: 1; }
+  60%      { transform: scaleY(.85) scaleX(1.1) rotate(-4deg); opacity: .75; }
+}
+
+/* rising embers */
+.flame-ember {
+  position: absolute;
+  width: 4px; height: 4px;
+  border-radius: 50%;
+  background: #ffb35c;
+  box-shadow: 0 0 8px 2px rgba(255,140,40,.8);
+  animation: emberRise 3s linear infinite;
+  opacity: 0;
+}
+@keyframes emberRise {
+  0%   { transform: translateY(0) translateX(0) scale(1); opacity: 0; }
+  10%  { opacity: .9; }
+  100% { transform: translateY(-140px) translateX(14px) scale(.3); opacity: 0; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: .01ms !important;
